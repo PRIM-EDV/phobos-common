@@ -1,0 +1,1 @@
+import { IndexController } from './controller/index.controller.js';
