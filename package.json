@@ -1,0 +1,22 @@
+{
+  "name": "@phobos/common",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@nestjs/common": "~11.1.16",
+    "express": "^5.2.1",
+    "jsdom": "^28.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/jsdom": "^28.0.0",
+    "typescript": "^5.0.4"
+  }
+}
