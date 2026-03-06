@@ -1,1 +1,1 @@
-import { IndexController } from './controller/index.controller.js';
+export { IndexController } from './controller/index.controller.js';
