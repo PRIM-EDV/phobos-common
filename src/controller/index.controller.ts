@@ -1,4 +1,4 @@
-import { Controller, Get, OnModuleInit, Req, Res } from "@nestjs/common";
+import { ConsoleLogger, Controller, Get, Inject, LoggerService, OnModuleInit, Optional, Req, Res } from "@nestjs/common";
 import { Request, Response } from "express";
 import { JSDOM } from "jsdom";
 
@@ -10,15 +10,20 @@ const BASE_PATH = process.env.BASE_PATH || '';
 @Controller()
 export class IndexController implements OnModuleInit {
   private indexHtmlDom?: JSDOM;
+  private readonly logger: ConsoleLogger | Console;
+
+  constructor(@Optional() @Inject('APP_LOGGER') logger?: ConsoleLogger) { 
+    this.logger = this.setupLogger(logger);
+  }
 
   async onModuleInit() {
     try {
       this.indexHtmlDom = this.loadIndexHtmlDom();
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-        console.error("Could not load index.html. No such file.");
+        this.logger.error("Could not load index.html. No such file.");
       } else {
-        console.error("Unexpected error loading index.html:", error);
+        this.logger.error(`Unexpected error loading index.html: ${(error as Error).message}`);
       }
     }
   }
@@ -30,6 +35,15 @@ export class IndexController implements OnModuleInit {
       res.send(document.serialize());
     } else {
       res.status(500).send("Index document not loaded");
+    }
+  }
+
+  private setupLogger(logger?: ConsoleLogger): ConsoleLogger {
+    if (logger) {
+      logger.setContext(IndexController.name);
+      return logger;
+    } else {
+      return  new ConsoleLogger(IndexController.name);
     }
   }
 
