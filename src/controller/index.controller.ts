@@ -15,7 +15,11 @@ export class IndexController implements OnModuleInit {
     try {
       this.indexHtmlDom = this.loadIndexHtmlDom();
     } catch (error) {
-      console.error("Error loading index.html:", error);
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+        console.error("Could not load index.html. No such file.");
+      } else {
+        console.error("Unexpected error loading index.html:", error);
+      }
     }
   }
 
