@@ -1,22 +1,61 @@
 {
   "name": "@phobos/common",
-  "version": "0.1.1",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "version": "1.0.0",
   "scripts": {
-    "build": "tsc",
-    "prepare": "npm run build"
+    "ng": "ng",
+    "build": "ng build phobos-common",
+    "release": "release-it",
+    "watch": "ng build --watch --configuration development"
   },
-  "type": "module",
   "private": true,
   "dependencies": {
-    "@nestjs/common": "~11.1.16",
-    "express": "^5.2.1",
-    "jsdom": "^28.1.0"
+    "@angular/common": ">=20.0.0",
+    "@angular/core": ">=20.0.0"
+  },
+  "peerDependencies": {
+    "@phobos/core": ">=1.0.0"
   },
   "devDependencies": {
-    "@types/express": "^5.0.6",
-    "@types/jsdom": "^28.0.0",
-    "typescript": "^5.0.4"
+    "@angular-devkit/build-angular": ">=20.0.0",
+    "@angular/cli": ">=20.0.0",
+    "@angular/compiler": ">=20.0.0",
+    "@angular/compiler-cli": ">=20.0.0",
+    "@release-it/bumper": "^7.0.5",
+    "ng-packagr": ">=20.0.0",
+    "release-it": "^19.2.4",
+    "typescript": "~5.9.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.1"
+  },
+  "release-it": {
+    "$schema": "https://unpkg.com/release-it/schema/release-it.json",
+    "github": {
+      "release": true
+    },
+    "git": {
+      "requireCleanWorkingDir": false
+    },
+    "npm": {
+      "publish": false,
+      "bump": false
+    },
+    "plugins": {
+      "@release-it/bumper": {
+        "out": [
+          "lib/package.json"
+        ]
+      }
+    }
+  },
+  "module": "./dist/fesm2022/phobos-common.mjs",
+  "exports": {
+    "./package.json": {
+      "default": "./dist/package.json"
+    },
+    ".": {
+      "types": "./dist/types/phobos-common.d.ts",
+      "esm": "./dist/fesm2022/phobos-common.mjs",
+      "default": "./dist/fesm2022/phobos-common.mjs"
+    }
   }
 }
