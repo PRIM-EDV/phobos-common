@@ -56,12 +56,5 @@
       "esm": "./dist/fesm2022/phobos-common.mjs",
       "default": "./dist/fesm2022/phobos-common.mjs"
     }
-  },
-  "nx": {
-    "targets": {
-      "build": {
-        "dependsOn": ["^build"]
-      }
-    }
   }
 }
