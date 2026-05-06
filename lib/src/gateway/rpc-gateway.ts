@@ -103,7 +103,6 @@ export abstract class RpcGateway<Msg extends RpcMessage, Req, Res> {
 
   private handleClose() {
     this.isConnected.set(false);
-    setTimeout(this.connect.bind(this), 5000);
     this.onClose.next();
   }
 
